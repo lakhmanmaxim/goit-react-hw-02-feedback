@@ -3,38 +3,19 @@ import styles from './stylesFeedback.module.css';
 
 class Feedback extends Component {
 
-  static defaultProps = {
-    initialValue: 0,
-  }
-
   state = {
     good: 0,
     neutral: 0,
     bad: 0,
   };
 
-  counterGood = () => {
-    this.setState(prevValue => {
+  counterVotes (voteName) {
+    this.setState(prevState => {
       return {
-        good: prevValue.good + 1,
+        [voteName]: prevState[voteName] + 1,
       };
     });
-  };
-
-  counterNeutral = () => {
-    this.setState(prevValue => {
-      return {
-        neutral: prevValue.neutral + 1,
-      };
-    });
-  };
-  counterBad = () => {
-    this.setState(prevValue => {
-      return {
-        bad: prevValue.bad + 1,
-      };
-    });
-  };
+  }
 
   totalVotes = () => {
     const totalVotes = this.state.good + this.state.neutral + this.state.bad;
@@ -42,32 +23,27 @@ class Feedback extends Component {
   };
 
   persentPositive = () => {
-    const totalPositiveVotes = this.state.good * 100 / this.totalVotes;
+    const totalPositiveVotes = ( this.state.good * 100 / this.totalVotes() );
     return totalPositiveVotes;
   };
 
   render() {
 
-    const totalPositiveVotes = ( (this.state.good * 100)  / this.totalVotes() );
-
     return (
       <div className={styles.wrapper}>
         <span className={styles.text}>Please, leave Feedback</span>
         <ul className={styles.list}>
-          <li className={styles.item} type="button" onClick={this.counterGood}>
-            <button className={styles.btn}>Good</button>
+          <li className={styles.item}>
+            <button className={styles.btn} type="button" onClick={()=>{this.counterVotes("good")}}>Good</button>
           </li>
-          <li
-            className={styles.item}
-            type="button"
-            onClick={this.counterNeutral}
-          >
-            <button className={styles.btn}>Neutral</button>
+          <li className={styles.item}>
+            <button className={styles.btn} type="button" onClick={()=>{this.counterVotes("neutral")}}>Neutral</button>
           </li>
-          <li className={styles.item} type="button" onClick={this.counterBad}>
-            <button className={styles.btn}>Bad</button>
+          <li className={styles.item}>
+            <button className={styles.btn} type="button" onClick={()=>{this.counterVotes("bad")}}>Bad</button>
           </li>
         </ul>
+        
         <span className={styles.stat__text}>Statistics:</span>
         <ul className={styles.stat__list}>
           <li className={styles.statistics__item}>Good: {this.state.good}</li>
@@ -76,8 +52,9 @@ class Feedback extends Component {
           </li>
           <li className={styles.statistics__item}>Bad: {this.state.bad}</li>
           <li className={styles.statistics__item}>Total : {this.totalVotes()}</li>
-          {/* <li className={styles.statistics__item}>Positive feedack :{totalPositiveVotes}%</li> */}
-          {this.totalVotes() ? <li className={styles.statistics__item}>Positive feedack :{totalPositiveVotes.toFixed(0)} %</li> : <li className={styles.statistics__item}>Positive feedack: 0 %</li>}
+          {this.totalVotes() ? 
+          <li className={styles.statistics__item}>Positive feedack: {this.persentPositive().toFixed(0)} %</li> : 
+          <li className={styles.statistics__item}>Positive feedack: 0 %</li>}
         </ul>
       </div>
     );

@@ -1,0 +1,37 @@
+.list {
+    list-style: none;
+    display: flex;
+
+    margin: 15px 0 0 20px;
+    padding: 0;
+}
+
+
+.item:not(:first-child) {
+margin-left: 15px;
+}
+
+.text {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 8px;
+    background-color: rgb(22, 184, 184);
+    border: 1px solid grey;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn:not(:first-child) {
+    margin-left: 15px;
+}
+
+.btn:hover {
+    background-color: rgb(159, 100, 214);
+}
