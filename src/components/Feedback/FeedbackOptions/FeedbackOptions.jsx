@@ -1,13 +1,19 @@
-import styles from "./feedback-option.module.css";
+import styles from './feedback-option.module.css';
 
-const FeedbackOptions = ( { options, onLeaveFeedback} ) => {
-    
+const FeedbackOptions = ({ options, onLeaveFeedback }) => {
+  return options.map(option => {
     return (
-        options.map((option)=> {
-           return <button className={styles.btn} type="button" onClick={()=>{onLeaveFeedback(option)}}>{option}</button>
-        }
-    )
-    )
-}
+      <button
+        className={styles.btn}
+        type="button"
+        onClick={() => {
+          onLeaveFeedback(option);
+        }}
+      >
+        {option}
+      </button>
+    );
+  });
+};
 
 export default FeedbackOptions;
